@@ -9,6 +9,12 @@ Route::prefix('auth')->group(function () {
     Route::get('{provider}/callback', [SocialController::class, 'callback'])->name('social.callback');
 });
 
-Route::get('{any?}', function() {
+// Catch-all route for Vue Router (SPA)
+Route::get('/{any}', function() {
     return view('application');
-})->where('any', '.*');
+})->where('any', '^(?!api).*$')->name('spa');
+
+// Fallback for root
+Route::get('/', function() {
+    return view('application');
+})->name('home');

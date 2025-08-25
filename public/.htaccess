@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # Prevent direct access to build directory and redirect to proper Laravel routes
+    RewriteCond %{REQUEST_URI} ^/build/(.*)$
+    RewriteRule ^build/(.*)$ /$1 [L,R=301]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
