@@ -5,8 +5,14 @@
 
     RewriteEngine On
 
-    # Prevent direct access to build directory and redirect to proper Laravel routes
+    # Serve build assets directly from the filesystem (highest priority)
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_URI} ^/build/
+    RewriteRule . - [L]
+
+    # Prevent direct access to build directory URLs and redirect to proper Laravel routes
     RewriteCond %{REQUEST_URI} ^/build/(.*)$
+    RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^build/(.*)$ /$1 [L,R=301]
 
     # Handle Authorization Header

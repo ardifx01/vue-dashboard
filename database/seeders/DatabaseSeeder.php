@@ -13,16 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed roles and permissions first
-        $this->call(RolePermissionSeeder::class);
-        
-        // Create test users
-        User::factory(10)->create();
+        // \App\Models\User::factory(10)->create();
 
-        // Create test user
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@vue-dashboard.dev',
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        // Seed demo data for authentication and roles
+        $this->call([
+            DemoDataSeeder::class,
         ]);
     }
 }

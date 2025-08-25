@@ -48,27 +48,40 @@ const login = async () => {
       body: {
         email: credentials.value.email,
         password: credentials.value.password,
+        remember_me: rememberMe.value,
       },
       onResponseError({ response }) {
-        errors.value = response._data.errors
+        errors.value = response._data.errors || { email: ['Login failed. Please try again.'] }
       },
     })
 
+    // Extract response data following Vuexy API response format
     const { accessToken, userData, userAbilityRules } = res
 
+    // Store auth data in cookies (Vuexy standard)
     useCookie('userAbilityRules').value = userAbilityRules
-    ability.update(userAbilityRules)
     useCookie('userData').value = userData
     useCookie('accessToken').value = accessToken
 
-    // Redirect to `to` query if exist or redirect to index route
+    // Update CASL abilities
+    ability.update(userAbilityRules)
 
-    // ❗ nextTick is required to wait for DOM updates and later redirect
+    // Show success message
+    console.log('Login successful:', userData)
+
+    // Redirect to dashboard or requested page
     await nextTick(() => {
       router.replace(route.query.to ? String(route.query.to) : '/')
     })
   } catch (err) {
-    console.error(err)
+    console.error('Login error:', err)
+    
+    // Handle validation errors
+    if (err.data?.errors) {
+      errors.value = err.data.errors
+    } else {
+      errors.value = { email: ['An unexpected error occurred. Please try again.'] }
+    }
   }
 }
 

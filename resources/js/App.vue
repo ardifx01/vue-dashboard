@@ -1,12 +1,12 @@
 <script setup>
-import { useTheme } from 'vuetify'
 import ScrollToTop from '@core/components/ScrollToTop.vue'
 import initCore from '@core/initCore'
 import {
-  initConfigStore,
-  useConfigStore,
+    initConfigStore,
+    useConfigStore,
 } from '@core/stores/config'
 import { hexToRgb } from '@core/utils/colorConverter'
+import { useTheme } from 'vuetify'
 
 const { global } = useTheme()
 
@@ -15,6 +15,14 @@ initCore()
 initConfigStore()
 
 const configStore = useConfigStore()
+
+// Initialize auth state on app load following Vuexy standards
+const { initAuth } = useAuth()
+
+onMounted(async () => {
+  // Initialize authentication state
+  await initAuth()
+})
 </script>
 
 <template>
