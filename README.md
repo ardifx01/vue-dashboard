@@ -41,7 +41,7 @@ A modern, secure, and feature-rich dashboard starter kit built with Vue 3, Vueti
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/IlhamriSKY/vue-dashboard.git
+git clone https://github.com/ardifx01/vue-dashboard.git
 cd vue-dashboard
 ```
 
@@ -235,7 +235,7 @@ This project is open-sourced software licensed under the [MIT license](LICENSE).
 
 ## 💬 Support
 
-If you encounter any issues or have questions, please [open an issue](https://github.com/IlhamriSKY/vue-dashboard/issues) on GitHub.
+If you encounter any issues or have questions, please [open an issue](https://github.com/ardifx01/vue-dashboard/issues) on GitHub.
 
 ---
 
